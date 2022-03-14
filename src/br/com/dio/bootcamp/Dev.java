@@ -6,7 +6,9 @@ import java.util.Set;
 
 public class Dev {
     private String nome;
-    private Set cursos;
+    private int xp;
+
+
     private Set<Conteudo> conteudosInscritos = new LinkedHashSet<>();
     private Set<Conteudo> conteudosConcluidos = new LinkedHashSet<>();
 
@@ -19,15 +21,19 @@ public class Dev {
         Optional<Conteudo> conteudo = this.conteudosInscritos.stream().findFirst();
         if (conteudo.isPresent()) {
             this.conteudosConcluidos.add(conteudo.get());
+            atualizarXp(conteudo.get().getXp());
             this.conteudosInscritos.remove(conteudo.get());
             System.out.println(this.getNome() + " concluiu :" + conteudo.get() + "\n");
         } else {
             System.err.println("Não inscrito!");
         }
     }
+    public void atualizarXp(int xpConteudo) {
+        setXp(getXp() + xpConteudo);
+    }
 
     public void inscrito(String nome, Set cursos) {
-        System.out.println(nome + " está inscrito em:\n" + cursos + "\n");
+        System.out.println(nome + " tem: " + getXp() + "xp\nEstá inscrito em:\n" + cursos + "\n");
     }
 
     public int totalXp() {
@@ -35,6 +41,10 @@ public class Dev {
                 .stream()
                 .mapToInt(Conteudo::calcularXp).sum();
     }
+
+    public int getXp() { return xp; }
+
+    public void setXp(int xp) { this.xp = xp; }
 
     public String getNome() {
         return nome;
