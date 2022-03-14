@@ -2,29 +2,11 @@ package br.com.dio.bootcamp;
 
 import java.time.LocalDate;
 
-public class Mentoria {
-    private String titulo;
-    private String description;
+public class Mentoria extends Conteudo {
     private LocalDate data;
-
-    public String getTitulo() {
-        return titulo;
-    }
-
-    public String getDescription() {
-        return description;
-    }
 
     public LocalDate getData() {
         return data;
-    }
-
-    public void setTitulo(String titulo) {
-        this.titulo = titulo;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
     }
 
     public void setData(LocalDate data) {
@@ -32,9 +14,16 @@ public class Mentoria {
     }
 
     @Override
+    public int calcularXp() {
+        setXp((getXp()+XP_DEFALT));
+        return 0;
+    }
+
+    @Override
     public String toString() {
-        return  "\n" + titulo +
-                "\nDescricão: " + description +
-                "\nData: " + data;
+        return  "\n" + getTitulo() +
+                "\nDescrição: " + getDescription() +
+                "\nData: " + data +
+                "\nExperiência: " + getXp() + " xp\n";
     }
 }
